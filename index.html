@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>نموذج تسجيل البيانات مع عداد تنازلي</title>
+  <title>نموذج تسجيل البيانات مع زر بدء العداد</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
     body {
@@ -32,11 +32,16 @@
       font-weight: 700;
       font-size: 1.8rem;
     }
+    .field-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
     input[type="tel"],
     input[type="text"] {
-      width: 100%;
+      flex: 1;
       padding: 14px 20px;
-      margin: 12px 0 20px 0;
       border-radius: 15px;
       border: 2px solid #85c885;
       box-sizing: border-box;
@@ -50,12 +55,11 @@
       outline: none;
       box-shadow: 0 0 8px #3a9d3a;
     }
-    button {
-      width: 100%;
+    button, #startTimerBtn {
       background-color: #2a662a;
       color: white;
-      padding: 15px 0;
-      font-size: 1.1rem;
+      padding: 12px 18px;
+      font-size: 1rem;
       border: none;
       border-radius: 25px;
       cursor: pointer;
@@ -63,11 +67,8 @@
       box-shadow: 0 6px 12px rgba(42, 102, 42, 0.5);
       transition: background-color 0.3s ease;
     }
-    button:hover {
+    button:hover, #startTimerBtn:hover {
       background-color: #1e461e;
-    }
-    input[name="_honey"] {
-      display: none;
     }
     #timer {
       text-align: center;
@@ -75,6 +76,9 @@
       color: #2a662a;
       margin-bottom: 15px;
       font-size: 1.2rem;
+      display: none;
+    }
+    input[name="_honey"] {
       display: none;
     }
     @media (max-width: 360px) {
@@ -87,12 +91,15 @@
       }
       input[type="tel"],
       input[type="text"] {
-        padding: 12px 15px;
         font-size: 0.9rem;
       }
-      button {
-        padding: 12px 0;
-        font-size: 1rem;
+      button, #startTimerBtn {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+      }
+      .field-group {
+        flex-direction: column;
+        gap: 10px;
       }
     }
   </style>
@@ -104,8 +111,10 @@
 
     <div id="timer">الوقت المتبقي للإرسال: 08:00</div>
 
-    <!-- رقم الهاتف -->
-    <input type="tel" id="phone" name="رقم_الهاتف" placeholder="رقم الهاتف" required>
+    <div class="field-group">
+      <input type="tel" id="phone" name="رقم_الهاتف" placeholder="رقم الهاتف" required>
+      <button type="button" id="startTimerBtn">بدء العد</button>
+    </div>
 
     <!-- كود الرسالة -->
     <input type="text" name="كود_الرسالة" placeholder="كود الرسالة" required>
@@ -124,6 +133,7 @@
 
   <script>
     const phoneInput = document.getElementById('phone');
+    const startBtn = document.getElementById('startTimerBtn');
     const timerDisplay = document.getElementById('timer');
     const form = document.getElementById('dataForm');
     let countdown;
@@ -137,8 +147,13 @@
 
     function startTimer() {
       if (countdown) return; // لا تبدأ إذا العداد شغال بالفعل
+      if (!phoneInput.value.trim()) {
+        alert("يرجى إدخال رقم الهاتف أولاً!");
+        return;
+      }
       timerDisplay.style.display = 'block';
       timerDisplay.textContent = `الوقت المتبقي للإرسال: ${formatTime(timeLeft)}`;
+      startBtn.disabled = true; // تعطيل الزر بعد البدء
 
       countdown = setInterval(() => {
         timeLeft--;
@@ -151,17 +166,7 @@
       }, 1000);
     }
 
-    phoneInput.addEventListener('input', () => {
-      if (phoneInput.value.trim().length > 0) {
-        startTimer();
-      } else {
-        // لو حذف رقم الهاتف يرجع العداد مخفي ويتم إلغاء العد
-        timerDisplay.style.display = 'none';
-        clearInterval(countdown);
-        countdown = null;
-        timeLeft = 480;
-      }
-    });
+    startBtn.addEventListener('click', startTimer);
   </script>
 
 </body>
